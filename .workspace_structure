@@ -1,0 +1,22 @@
+src/
+  main/
+    java/
+      com/
+        ecommerce/
+          config/
+          controller/
+          service/
+          repository/
+          model/
+          dto/
+          exception/
+    resources/
+      application.yml
+      graphql/
+        schema.graphqls
+  test/
+    java/
+      com/
+        ecommerce/
+          controller/
+          service/
