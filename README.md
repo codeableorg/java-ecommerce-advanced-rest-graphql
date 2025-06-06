@@ -55,14 +55,14 @@ mvn test
       "category": "ropa",
       "price": 29.99,
       "available": true,
-      "stock": 100
+      "sales": 100
     }'
   ```
 - **Actualizar parcialmente producto (PATCH):**
   ```bash
   curl -X PATCH http://localhost:8080/api/v1/products/1 \
     -H "Content-Type: application/json" \
-    -d '{ "price": 24.99, "stock": 80 }'
+    -d '{ "price": 24.99, "sales": 80 }'
   ```
 - **Eliminar producto:**
   ```bash
@@ -75,25 +75,26 @@ mvn test
 
 ## Endpoints GraphQL
 
-- Acceso: [http://localhost:8080/graphiql](http://localhost:8080/graphiql)
-- Ejemplo de query:
+- Endpoint: `POST http://localhost:8080/graphql`
+- No hay interfaz web integrada (como GraphiQL o Playground). Usa herramientas externas como [Altair](https://altair.sirmuel.design/), [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/) o la extensión GraphQL de VS Code para probar queries.
+- Ejemplo de query soportada:
   ```graphql
   query {
-    products(page: 1, size: 10, name: "camisa") {
-      content {
-        id
-        name
-        price
-        available
-      }
-      page
-      size
-      totalElements
-      totalPages
+    products {
+      id
+      name
+      price
+      available
     }
   }
   ```
-- Ejemplo de mutation:
+- Ejemplo de request con curl:
+  ```bash
+  curl -X POST http://localhost:8080/graphql \
+    -H "Content-Type: application/json" \
+    -d '{ "query": "{ products { id name price available } }" }'
+  ```
+- Ejemplo de mutation (si tu API lo soporta):
   ```graphql
   mutation {
     createProduct(input: {
@@ -102,7 +103,7 @@ mvn test
       category: "calzado",
       price: 59.99,
       available: true,
-      stock: 50
+      sales: 50
     }) {
       id
       name
@@ -114,7 +115,7 @@ mvn test
 ## Paginación y filtrado
 - Los endpoints REST y GraphQL soportan paginación 1-based (`page`, `size`).
 - Filtros disponibles: `name`, `category`, `minPrice`, `maxPrice`, `available`.
-- Respuesta incluye resumen de paginación: `page`, `size`, `totalElements`, `totalPages`.
+- Respuesta incluye resumen de paginación: `pagination` con `total_records`, `current_page`, `total_pages`, `next_page`, `prev_page`.
 
 ## Manejo global de errores
 - Errores de validación y negocio se devuelven en formato JSON:
