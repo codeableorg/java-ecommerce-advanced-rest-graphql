@@ -13,3 +13,16 @@ type Product {
   available: Boolean!
   sales: Int!
 }
+
+type Mutation {
+  createProduct(input: ProductInput!): Product
+}
+
+input ProductInput {
+  name: String!
+  description: String
+  price: Float!
+  category: String!
+  available: Boolean!
+  sales: Int!
+}
