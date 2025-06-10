@@ -13,7 +13,8 @@ import org.springframework.stereotype.Repository;
  * Repositorio reactivo para productos.
  */
 @Repository
-public interface ProductRepository extends org.springframework.data.repository.reactive.ReactiveCrudRepository<Product, Long> {
+public interface ProductRepository
+        extends org.springframework.data.repository.reactive.ReactiveCrudRepository<Product, Long> {
     Flux<Product> findByCategory(String category, Pageable pageable);
 
     Flux<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
@@ -24,44 +25,42 @@ public interface ProductRepository extends org.springframework.data.repository.r
     Flux<Product> findTopSelling(int limit);
 
     @Query("""
-        SELECT * FROM products
-        WHERE (:name IS NULL OR LOWER(name) LIKE LOWER(CONCAT('%', :name, '%')))
-          AND (:category IS NULL OR category = :category)
-          AND (:minPrice IS NULL OR price >= :minPrice)
-          AND (:maxPrice IS NULL OR price <= :maxPrice)
-          AND (:available IS NULL OR available = :available)
-          AND (:minSales IS NULL OR sales >= :minSales)
-        ORDER BY id ASC
-        LIMIT :limit OFFSET :offset
-    """)
+                SELECT * FROM products
+                WHERE (:name IS NULL OR LOWER(name) LIKE LOWER(CONCAT('%', :name, '%')))
+                  AND (:category IS NULL OR category = :category)
+                  AND (:minPrice IS NULL OR price >= :minPrice)
+                  AND (:maxPrice IS NULL OR price <= :maxPrice)
+                  AND (:available IS NULL OR available = :available)
+                  AND (:minSales IS NULL OR sales >= :minSales)
+                ORDER BY id ASC
+                LIMIT :limit OFFSET :offset
+            """)
     Flux<Product> searchProducts(
-        @Param("name") String name,
-        @Param("category") String category,
-        @Param("minPrice") Double minPrice,
-        @Param("maxPrice") Double maxPrice,
-        @Param("available") Boolean available,
-        @Param("minSales") Integer minSales,
-        @Param("limit") int limit,
-        @Param("offset") int offset
-    );
+            @Param("name") String name,
+            @Param("category") String category,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("available") Boolean available,
+            @Param("minSales") Integer minSales,
+            @Param("limit") int limit,
+            @Param("offset") int offset);
 
     @Query("""
-        SELECT COUNT(*) FROM products
-        WHERE (:name IS NULL OR LOWER(name) LIKE LOWER(CONCAT('%', :name, '%')))
-          AND (:category IS NULL OR category = :category)
-          AND (:minPrice IS NULL OR price >= :minPrice)
-          AND (:maxPrice IS NULL OR price <= :maxPrice)
-          AND (:available IS NULL OR available = :available)
-          AND (:minSales IS NULL OR sales >= :minSales)
-    """)
+                SELECT COUNT(*) FROM products
+                WHERE (:name IS NULL OR LOWER(name) LIKE LOWER(CONCAT('%', :name, '%')))
+                  AND (:category IS NULL OR category = :category)
+                  AND (:minPrice IS NULL OR price >= :minPrice)
+                  AND (:maxPrice IS NULL OR price <= :maxPrice)
+                  AND (:available IS NULL OR available = :available)
+                  AND (:minSales IS NULL OR sales >= :minSales)
+            """)
     Mono<Long> countSearchProducts(
-        @Param("name") String name,
-        @Param("category") String category,
-        @Param("minPrice") Double minPrice,
-        @Param("maxPrice") Double maxPrice,
-        @Param("available") Boolean available,
-        @Param("minSales") Integer minSales
-    );
+            @Param("name") String name,
+            @Param("category") String category,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("available") Boolean available,
+            @Param("minSales") Integer minSales);
 
     // Métodos para filtrado avanzado pueden agregarse aquí
 }

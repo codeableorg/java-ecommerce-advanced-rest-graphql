@@ -89,14 +89,15 @@ public class ProductService {
         return productRepository.saveAll(products);
     }
 
-    public Flux<Product> searchProducts(String name, String category, Double minPrice, Double maxPrice, Boolean available, Integer minSales, int page, int size) {
+    // Métodos para filtrado y búsqueda pueden agregarse aquí
+    public Flux<Product> searchProducts(String name, String category, Double minPrice, Double maxPrice,
+            Boolean available, Integer minSales, int page, int size) {
         int offset = (page > 0 ? page - 1 : 0) * size;
         return productRepository.searchProducts(name, category, minPrice, maxPrice, available, minSales, size, offset);
     }
 
-    public Mono<Long> countSearchProducts(String name, String category, Double minPrice, Double maxPrice, Boolean available, Integer minSales) {
+    public Mono<Long> countSearchProducts(String name, String category, Double minPrice, Double maxPrice,
+            Boolean available, Integer minSales) {
         return productRepository.countSearchProducts(name, category, minPrice, maxPrice, available, minSales);
     }
-
-    // Métodos para filtrado y búsqueda pueden agregarse aquí
 }
