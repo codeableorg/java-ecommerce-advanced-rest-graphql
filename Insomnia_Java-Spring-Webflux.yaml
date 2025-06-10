@@ -1,0 +1,301 @@
+type: collection.insomnia.rest/5.0
+name: Java Spring Webflux
+meta:
+  id: wrk_135b0b29b20c445ca140a541f84b0cfe
+  created: 1748978722646
+  modified: 1748978722646
+  description: ""
+collection:
+  - url: http://localhost:8080/api/v1/products/1
+    name: Obtener producto
+    meta:
+      id: req_8301785bf70e43e48aa3793d03f9ce56
+      created: 1748978729659
+      modified: 1749186035600
+      isPrivate: false
+      description: ""
+      sortKey: -1749127729492.75
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products
+    name: Listar productos
+    meta:
+      id: req_63b3419a122944dda72153c37ccb0d8e
+      created: 1749177396104
+      modified: 1749186027961
+      isPrivate: false
+      description: ""
+      sortKey: -1749177396104
+    method: GET
+    parameters:
+      - id: pair_ce431e2917e9459390340660d54296e2
+        name: page
+        value: "2"
+        description: ""
+        disabled: true
+      - id: pair_97668472d35a4115b5445f85f535d76f
+        name: size
+        value: "2"
+        description: ""
+        disabled: true
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+        id: pair_5e66d546126643e1a021c672a21d3fc8
+      - id: pair_c7314464dbfa4cc4ab850b59fc37efa1
+        name: Accept
+        value: application/json
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products/top-selling?limit=5&page=1
+    name: Top Selling
+    meta:
+      id: req_a35aa309364e44b7a6bddd624ec06a3d
+      created: 1749183927954
+      modified: 1749184264083
+      isPrivate: false
+      description: ""
+      sortKey: -1749078062881.5
+    method: GET
+    parameters:
+      - id: pair_ce431e2917e9459390340660d54296e2
+        name: page
+        value: "2"
+        description: ""
+        disabled: true
+      - id: pair_97668472d35a4115b5445f85f535d76f
+        name: size
+        value: "2"
+        description: ""
+        disabled: true
+    headers:
+      - name: User-Agent
+        value: insomnia/11.1.0
+        id: pair_5e66d546126643e1a021c672a21d3fc8
+      - id: pair_c7314464dbfa4cc4ab850b59fc37efa1
+        name: Accept
+        value: application/json
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/graphql
+    name: Graphql Crear producto
+    meta:
+      id: req_36dac45995d34d2aacbbb4a85da16f83
+      created: 1749184449681
+      modified: 1749530012222
+      isPrivate: false
+      description: ""
+      sortKey: -1749078062781.5
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":" mutation {\n    createProduct(input: {\n      name: \"Zapato
+        deportivo\",\n      description: \"Zapatilla running\",\n      category:
+        \"calzado\",\n      price: 59.99,\n      available: true,\n      sales:
+        50\n    }) {\n      id\n      name\n      price\n    }\n  }"}'
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products
+    name: Crear producto
+    meta:
+      id: req_e99ffa59cf39412c902066f585e718fd
+      created: 1749185725517
+      modified: 1749185835082
+      isPrivate: false
+      description: ""
+      sortKey: -1749102896187.125
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+         "name":"Nuevo Producto",
+         "description":"Descripción de prueba",  "price":49.99,
+         "category":"Electrónica",
+         "available":true,
+         "sales":0
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products/12
+    name: Actualizar producto
+    meta:
+      id: req_16db851062a941d4b9d77a8793f79b97
+      created: 1749185919986
+      modified: 1749187381765
+      isPrivate: false
+      description: ""
+      sortKey: -1749090479534.3125
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+         "price":89.99,
+         "available":false,
+         "sales":1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products/14
+    name: Borrar producto
+    meta:
+      id: req_3e524cbf83f448f3af3e1a216f0bdfb9
+      created: 1749186071876
+      modified: 1749530230683
+      isPrivate: false
+      description: ""
+      sortKey: -1749084271207.9062
+    method: DELETE
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/graphql
+    name: Graphql Listar productos
+    meta:
+      id: req_4d687dc4c88349699cb1a4272beec165
+      created: 1749530030197
+      modified: 1749530205594
+      isPrivate: false
+      description: ""
+      sortKey: -1749078062831.5
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        { 
+        	"query": "{ products { id name price   available } }" 
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products/bulk
+    name: Carga masiva
+    meta:
+      id: req_f14d4d36001c45d699034a0582cb6496
+      created: 1749530625990
+      modified: 1749530744405
+      isPrivate: false
+      description: ""
+      sortKey: -1749096687860.7188
+    method: POST
+    body:
+      mimeType: application/octet-stream
+      fileName: C:\Users\teddy\OneDrive\Escritorio\productos.json
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/products/stream
+    name: Streaming reactivo de productos
+    meta:
+      id: req_87ce261ca6a54b6aa98ec83d6c5d7545
+      created: 1749571074001
+      modified: 1749571111956
+      isPrivate: false
+      description: ""
+      sortKey: -1749078062856.5
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.2.0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_f6716c384c48533ca025d3a197071ee566c115a6
+    created: 1748978722659
+    modified: 1748978722659
+environments:
+  name: Base Environment
+  meta:
+    id: env_f6716c384c48533ca025d3a197071ee566c115a6
+    created: 1748978722653
+    modified: 1748978722653
+    isPrivate: false
