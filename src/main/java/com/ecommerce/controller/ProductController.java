@@ -118,4 +118,44 @@ public class ProductController {
         return productService.getAllProducts()
                 .map(ProductDto::fromEntity);
     }
+
+    @GetMapping("/search")
+    public Mono<Map<String, Object>> searchProducts(
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "category", required = false) String category,
+            @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "available", required = false) Boolean available,
+            @RequestParam(name = "minSales", required = false) Integer minSales,
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "size", defaultValue = "20") int size) {
+        return productService.searchProducts(name, category, minPrice, maxPrice, available, minSales, page, size)
+                .map(ProductDto::fromEntity)
+                .collectList()
+                .zipWith(productService.countSearchProducts(name, category, minPrice, maxPrice, available, minSales))
+                .map(tuple -> {
+                    List<ProductDto> products = tuple.getT1();
+                    long totalRecords = tuple.getT2();
+                    int totalPages = (int) Math.ceil((double) totalRecords / size);
+                    Map<String, Object> response = new HashMap<>();
+                    response.put("data", products);
+                    Map<String, Object> pagination = new HashMap<>();
+                    pagination.put("total_records", totalRecords);
+                    pagination.put("current_page", page);
+                    pagination.put("total_pages", totalPages);
+                    pagination.put("next_page", page < totalPages ? page + 1 : null);
+                    pagination.put("prev_page", page > 1 ? page - 1 : null);
+                    response.put("pagination", pagination);
+                    return response;
+                })
+                .onErrorResume(e -> {
+                    Map<String, Object> error = new HashMap<>();
+                    error.put("timestamp", java.time.Instant.now());
+                    error.put("status", 500);
+                    error.put("error", "Internal Server Error");
+                    error.put("message", e.getMessage());
+                    error.put("path", "/api/v1/products/search");
+                    return Mono.just(error);
+                });
+    }
 }

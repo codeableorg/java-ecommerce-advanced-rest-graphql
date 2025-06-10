@@ -36,6 +36,7 @@ mvn test
 | DELETE | /api/v1/products/{id}                 | Eliminar producto                  |
 | POST   | /api/v1/products/bulk                | Carga masiva de productos           |
 | GET    | /api/v1/products/stream               | Streaming reactivo de productos (SSE, soporta backpressure) |
+| GET    | /api/v1/products/search               | Búsqueda avanzada de productos con filtros y paginación |
 
 ### Ejemplos cURL
 
@@ -88,6 +89,10 @@ mvn test
   curl http://localhost:8080/api/v1/products/stream
   ```
   Este endpoint devuelve los productos uno a uno en tiempo real y soporta backpressure (ideal para grandes volúmenes o clientes que procesan lento).
+- **Búsqueda avanzada de productos:**
+  ```bash
+  curl "http://localhost:8080/api/v1/products/search?name=camisa&category=ropa&minPrice=10&maxPrice=100&available=true&minSales=5&page=1&size=10"
+  ```
 
 ## Endpoints GraphQL
 
