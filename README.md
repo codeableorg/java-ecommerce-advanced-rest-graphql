@@ -34,6 +34,7 @@ mvn test
 | POST   | /api/v1/products                      | Crear producto                     |
 | PATCH  | /api/v1/products/{id}                 | Actualizar parcialmente producto   |
 | DELETE | /api/v1/products/{id}                 | Eliminar producto                  |
+| POST   | /api/v1/products/bulk                | Carga masiva de productos           |
 
 ### Ejemplos cURL
 
@@ -71,6 +72,15 @@ mvn test
 - **Top ventas:**
   ```bash
   curl "http://localhost:8080/api/v1/products/top-selling?page=1&size=10"
+  ```
+- **Carga masiva de productos:**
+  ```bash
+  curl -X POST http://localhost:8080/api/v1/products/bulk \
+    -H "Content-Type: application/json" \
+    -d '[
+      {"name": "Producto 1", "description": "Desc 1", "category": "cat1", "price": 10.0, "available": true, "sales": 5},
+      {"name": "Producto 2", "description": "Desc 2", "category": "cat2", "price": 20.0, "available": true, "sales": 10}
+    ]'
   ```
 
 ## Endpoints GraphQL

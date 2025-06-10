@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
@@ -104,5 +105,11 @@ public class ProductController {
     @DeleteMapping(value = "/{id}")
     public Mono<Void> deleteProduct(@PathVariable(name = "id") Long id) {
         return productService.deleteProduct(id);
+    }
+
+    @PostMapping("/bulk")
+    public Flux<ProductDto> bulkInsert(@RequestBody Flux<ProductDto> products) {
+        return productService.bulkInsert(products.map(ProductDto::toEntity))
+                .map(ProductDto::fromEntity);
     }
 }

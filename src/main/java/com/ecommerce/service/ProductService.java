@@ -85,5 +85,9 @@ public class ProductService {
         return productRepository.deleteById(id);
     }
 
+    public Flux<Product> bulkInsert(Flux<Product> products) {
+        return productRepository.saveAll(products);
+    }
+
     // Métodos para filtrado y búsqueda pueden agregarse aquí
 }
