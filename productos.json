@@ -1,0 +1,22 @@
+[
+  {"name": "Producto 1", "description": "Desc 1", "category": "cat1", "price": 10.0, "available": true, "sales": 5},
+  {"name": "Producto 2", "description": "Desc 2", "category": "cat2", "price": 20.0, "available": true, "sales": 10},
+  {"name": "Producto 3", "description": "Desc 3", "category": "cat1", "price": 15.5, "available": false, "sales": 2},
+  {"name": "Producto 4", "description": "Desc 4", "category": "cat3", "price": 8.0, "available": true, "sales": 0},
+  {"name": "Producto 5", "description": "Desc 5", "category": "cat2", "price": 12.0, "available": true, "sales": 7},
+  {"name": "Producto 6", "description": "Desc 6", "category": "cat1", "price": 18.0, "available": true, "sales": 3},
+  {"name": "Producto 7", "description": "Desc 7", "category": "cat3", "price": 25.0, "available": false, "sales": 1},
+  {"name": "Producto 8", "description": "Desc 8", "category": "cat2", "price": 30.0, "available": true, "sales": 12},
+  {"name": "Producto 9", "description": "Desc 9", "category": "cat1", "price": 22.0, "available": true, "sales": 8},
+  {"name": "Producto 10", "description": "Desc 10", "category": "cat3", "price": 16.0, "available": true, "sales": 4},
+  {"name": "Producto 11", "description": "Desc 11", "category": "cat2", "price": 11.0, "available": true, "sales": 6},
+  {"name": "Producto 12", "description": "Desc 12", "category": "cat1", "price": 19.0, "available": false, "sales": 0},
+  {"name": "Producto 13", "description": "Desc 13", "category": "cat3", "price": 14.0, "available": true, "sales": 9},
+  {"name": "Producto 14", "description": "Desc 14", "category": "cat2", "price": 17.0, "available": true, "sales": 11},
+  {"name": "Producto 15", "description": "Desc 15", "category": "cat1", "price": 13.0, "available": true, "sales": 2},
+  {"name": "Producto 16", "description": "Desc 16", "category": "cat3", "price": 21.0, "available": false, "sales": 5},
+  {"name": "Producto 17", "description": "Desc 17", "category": "cat2", "price": 23.0, "available": true, "sales": 7},
+  {"name": "Producto 18", "description": "Desc 18", "category": "cat1", "price": 24.0, "available": true, "sales": 10},
+  {"name": "Producto 19", "description": "Desc 19", "category": "cat3", "price": 26.0, "available": true, "sales": 8},
+  {"name": "Producto 20", "description": "Desc 20", "category": "cat2", "price": 28.0, "available": true, "sales": 13}
+]
