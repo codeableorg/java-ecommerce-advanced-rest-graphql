@@ -30,6 +30,11 @@
             <artifactId>r2dbc-mysql</artifactId>
             <version>0.9.5</version>
         </dependency>
+        <dependency>
+            <groupId>io.r2dbc</groupId>
+            <artifactId>r2dbc-pool</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
         <!-- GraphQL -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
