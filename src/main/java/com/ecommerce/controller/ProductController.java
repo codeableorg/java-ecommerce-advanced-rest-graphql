@@ -43,6 +43,15 @@ public class ProductController {
                     pagination.put("prev_page", page > 1 ? page - 1 : null);
                     response.put("pagination", pagination);
                     return response;
+                })
+                .onErrorResume(e -> {
+                    Map<String, Object> error = new HashMap<>();
+                    error.put("timestamp", java.time.Instant.now());
+                    error.put("status", 500);
+                    error.put("error", "Internal Server Error");
+                    error.put("message", e.getMessage());
+                    error.put("path", "/api/v1/products");
+                    return Mono.just(error);
                 });
     }
 
