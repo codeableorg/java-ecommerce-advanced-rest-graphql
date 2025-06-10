@@ -112,4 +112,10 @@ public class ProductController {
         return productService.bulkInsert(products.map(ProductDto::toEntity))
                 .map(ProductDto::fromEntity);
     }
+
+    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ProductDto> streamProducts() {
+        return productService.getAllProducts()
+                .map(ProductDto::fromEntity);
+    }
 }
