@@ -108,4 +108,24 @@ class ProductServiceTest {
         StepVerifier.create(productService.deleteProduct(6L))
                 .verifyComplete();
     }
+
+    @Test
+    void getAllProducts_devuelveProductos() {
+        Product p = new Product();
+        p.setId(100L);
+        when(productRepository.findAll()).thenReturn(Flux.just(p));
+        StepVerifier.create(productService.getAllProducts())
+                .expectNext(p)
+                .verifyComplete();
+    }
+
+    @Test
+    void bulkInsert_insertaProductos() {
+        Product p = new Product();
+        p.setId(200L);
+        when(productRepository.saveAll(any(Flux.class))).thenReturn(Flux.just(p));
+        StepVerifier.create(productService.bulkInsert(Flux.just(p)))
+                .expectNext(p)
+                .verifyComplete();
+    }
 }

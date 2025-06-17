@@ -1,6 +1,7 @@
 package com.ecommerce;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import reactor.core.publisher.Flux;
@@ -124,5 +125,37 @@ public class ProductControllerTest {
                 .uri("/api/v1/products/40")
                 .exchange()
                 .expectStatus().isOk();
+    }
+
+    @Test
+    void testStreamProducts() {
+        Product p = new Product();
+        p.setId(300L);
+        when(productService.getAllProducts()).thenReturn(Flux.just(p));
+        webTestClient.get()
+                .uri("/api/v1/products/stream")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(Object.class)
+                .hasSize(1);
+    }
+
+    @Test
+    void testSearchProducts() {
+        Product p = new Product();
+        p.setId(400L);
+        when(productService.searchProducts(any(), any(), any(), any(), any(), any(),
+                anyInt(), anyInt()))
+                .thenReturn(Flux.just(p));
+        when(productService.countSearchProducts(any(), any(), any(), any(), any(),
+                any()))
+                .thenReturn(Mono.just(1L));
+        webTestClient.get()
+                .uri("/api/v1/products/search?name=prod")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.data[0].id").isEqualTo(400)
+                .jsonPath("$.pagination.total_records").isEqualTo(1);
     }
 }
