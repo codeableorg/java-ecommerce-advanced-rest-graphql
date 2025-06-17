@@ -153,6 +153,24 @@ mvn test
 - Pruebas unitarias y de integración con WebTestClient.
 - Ejecuta `mvn test` para validar los endpoints reactivos.
 
+## Pruebas y cobertura
+
+- El proyecto incluye pruebas unitarias y de integración para servicios, controladores y repositorios.
+- Los tests usan JUnit 5, Mockito y WebTestClient.
+- El entorno de pruebas utiliza H2 en memoria con R2DBC para aislar la base de datos real.
+- Se han agregado ejemplos de tests para cubrir la mayor parte de la lógica de negocio y endpoints principales.
+- El proyecto ahora integra **JaCoCo** para medir la cobertura de código.
+
+### ¿Cómo ver el reporte de cobertura?
+
+1. Ejecuta los tests y genera el reporte:
+   ```sh
+   mvn clean test jacoco:report
+   ```
+2. Abre el archivo `target/site/jacoco/index.html` en tu navegador para ver el detalle de la cobertura.
+
+Para mejorar la cobertura, revisa el archivo `JACOCO_MEJORA_COBERTURA.md`, incluido en el proyecto.
+
 ## Estructura recomendada
 - `config/` - configuración general y beans
 - `controller/` - controladores REST y GraphQL
