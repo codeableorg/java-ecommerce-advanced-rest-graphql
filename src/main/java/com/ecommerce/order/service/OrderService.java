@@ -1,11 +1,11 @@
 package com.ecommerce.order.service;
 
+import com.ecommerce.inventory.client.InventoryClient;
 import com.ecommerce.order.model.Order;
 import com.ecommerce.order.model.OrderItem;
 import com.ecommerce.order.repository.OrderRepository;
 import com.ecommerce.order.repository.OrderItemRepository;
 import com.ecommerce.product.repository.ProductRepository;
-import com.ecommerce.inventory.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
   private final ProductRepository productRepository;
-  private final InventoryRepository inventoryRepository;
+  private final InventoryClient inventoryClient;
 
   public Flux<Order> getAllOrders() {
     return orderRepository.findAll();
@@ -77,11 +77,8 @@ public class OrderService {
   }
 
   private Mono<Void> restoreInventory(Long productId, Integer quantity) {
-    return inventoryRepository.findByProductId(productId)
-        .flatMap(inventory -> {
-          inventory.setStockQuantity(inventory.getStockQuantity() + quantity);
-          return inventoryRepository.save(inventory).then();
-        });
+    return inventoryClient.restoreStock(productId, quantity)
+        .then();
   }
 
   public Mono<Order> recalculateOrderTotal(Long orderId) {
@@ -140,7 +137,7 @@ public class OrderService {
     return productRepository.findById(productId)
         .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
             "Product with ID " + productId + " not found")))
-        .then(inventoryRepository.findByProductId(productId)
+        .then(inventoryClient.getInventoryByProductId(productId)
             .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "No inventory found for product " + productId)))
             .flatMap(inventory -> {
@@ -153,10 +150,7 @@ public class OrderService {
   }
 
   private Mono<Void> reserveInventory(Long productId, Integer quantity) {
-    return inventoryRepository.findByProductId(productId)
-        .flatMap(inventory -> {
-          inventory.setStockQuantity(inventory.getStockQuantity() - quantity);
-          return inventoryRepository.save(inventory).then();
-        });
+    return inventoryClient.reserveStock(productId, quantity)
+        .then();
   }
 }

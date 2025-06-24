@@ -23,6 +23,12 @@ spring:
   #     mode: always
 server:
   port: 8081
+
+# Microservices configuration
+microservices:
+  api-gateway:
+    url: http://localhost:8080
+
 logging:
   level:
     root: INFO
