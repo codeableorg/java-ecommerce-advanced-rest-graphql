@@ -17,12 +17,8 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
-  # Remove sql.init - now using Flyway
-  # sql:
-  #   init:
-  #     mode: always
 server:
-  port: 8080
+  port: 8081 # Cambio: Gateway toma 8080, monolito va a 8081
 logging:
   level:
     root: INFO
