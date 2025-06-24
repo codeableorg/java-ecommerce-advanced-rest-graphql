@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
  * REST Controller para inventario.
  */
 @RestController
-@RequestMapping("/api/inventory")
+@RequestMapping("/api/v1/inventory")
 @RequiredArgsConstructor
 public class InventoryController {
 

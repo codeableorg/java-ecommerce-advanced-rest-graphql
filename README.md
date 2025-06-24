@@ -74,27 +74,27 @@ The project uses **Flyway** for professional database management:
 
 ### Orders API
 
-| Método | Path                                 | Descripción                       |
-| ------ | ------------------------------------ | --------------------------------- |
-| GET    | /api/orders                          | List all orders                   |
-| GET    | /api/orders/{id}                     | Get order by ID                   |
-| GET    | /api/orders/user/{userId}            | Get orders by user ID             |
-| GET    | /api/orders/{orderId}/items          | Get order items                   |
-| POST   | /api/orders                          | Create order (with/without items) |
-| POST   | /api/orders/{orderId}/items          | Add item to order                 |
-| DELETE | /api/orders/{orderId}/items/{itemId} | Remove item from order            |
-| PUT    | /api/orders/{orderId}/recalculate    | Recalculate order total           |
+| Método | Path                                    | Descripción                       |
+| ------ | --------------------------------------- | --------------------------------- |
+| GET    | /api/v1/orders                          | List all orders                   |
+| GET    | /api/v1/orders/{id}                     | Get order by ID                   |
+| GET    | /api/v1/orders/user/{userId}            | Get orders by user ID             |
+| GET    | /api/v1/orders/{orderId}/items          | Get order items                   |
+| POST   | /api/v1/orders                          | Create order (with/without items) |
+| POST   | /api/v1/orders/{orderId}/items          | Add item to order                 |
+| DELETE | /api/v1/orders/{orderId}/items/{itemId} | Remove item from order            |
+| PUT    | /api/v1/orders/{orderId}/recalculate    | Recalculate order total           |
 
 ### Inventory API
 
-| Método | Path                               | Descripción                 |
-| ------ | ---------------------------------- | --------------------------- |
-| GET    | /api/inventory                     | List all inventory          |
-| GET    | /api/inventory/{id}                | Get inventory by ID         |
-| GET    | /api/inventory/product/{productId} | Get inventory by product ID |
-| POST   | /api/inventory                     | Create inventory record     |
-| PUT    | /api/inventory/{id}                | Update inventory            |
-| DELETE | /api/inventory/{id}                | Delete inventory record     |
+| Método | Path                                  | Descripción                 |
+| ------ | ------------------------------------- | --------------------------- |
+| GET    | /api/v1/inventory                     | List all inventory          |
+| GET    | /api/v1/inventory/{id}                | Get inventory by ID         |
+| GET    | /api/v1/inventory/product/{productId} | Get inventory by product ID |
+| POST   | /api/v1/inventory                     | Create inventory record     |
+| PUT    | /api/v1/inventory/{id}                | Update inventory            |
+| DELETE | /api/v1/inventory/{id}                | Delete inventory record     |
 
 ### API Examples
 
@@ -149,7 +149,7 @@ curl -X PATCH http://localhost:8080/api/v1/users/1 \
 
 ```bash
 # Create order with items (automatic total calculation)
-curl -X POST http://localhost:8080/api/orders \
+curl -X POST http://localhost:8080/api/v1/orders \
   -H "Content-Type: application/json" \
   -d '{
     "userId": 1,
@@ -169,7 +169,7 @@ curl -X POST http://localhost:8080/api/orders \
   }'
 
 # Add item to existing order (automatic total recalculation)
-curl -X POST http://localhost:8080/api/orders/1/items \
+curl -X POST http://localhost:8080/api/v1/orders/1/items \
   -H "Content-Type: application/json" \
   -d '{
     "productId": 3,
@@ -178,21 +178,21 @@ curl -X POST http://localhost:8080/api/orders/1/items \
   }'
 
 # Get order with items
-curl http://localhost:8080/api/orders/1
-curl http://localhost:8080/api/orders/1/items
+curl http://localhost:8080/api/v1/orders/1
+curl http://localhost:8080/api/v1/orders/1/items
 ```
 
 #### Inventory Operations
 
 ```bash
 # Get all inventory
-curl http://localhost:8080/api/inventory
+curl http://localhost:8080/api/v1/inventory
 
 # Get inventory for specific product
-curl http://localhost:8080/api/inventory/product/1
+curl http://localhost:8080/api/v1/inventory/product/1
 
 # Update inventory
-curl -X PUT http://localhost:8080/api/inventory/1 \
+curl -X PUT http://localhost:8080/api/v1/inventory/1 \
   -H "Content-Type: application/json" \
   -d '{
     "productId": 1,

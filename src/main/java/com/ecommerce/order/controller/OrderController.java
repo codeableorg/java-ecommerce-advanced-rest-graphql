@@ -17,7 +17,7 @@ import java.util.List;
  * REST Controller para órdenes.
  */
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
