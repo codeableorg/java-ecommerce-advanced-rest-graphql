@@ -1,8 +1,14 @@
 package com.ecommerce.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.ecommerce.model.Product;
+
 /**
  * DTO para transferir datos de producto.
  */
+@Data
+@NoArgsConstructor
 public class ProductDto {
     private Long id;
     private String name;
@@ -12,68 +18,7 @@ public class ProductDto {
     private Boolean available;
     private Integer sales;
 
-    // Constructor vacío requerido por Jackson
-    public ProductDto() {
-    }
-
-    // Getters y setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    public Integer getSales() {
-        return sales;
-    }
-
-    public void setSales(Integer sales) {
-        this.sales = sales;
-    }
-
-    public static ProductDto fromEntity(com.ecommerce.model.Product product) {
+    public static ProductDto fromEntity(Product product) {
         ProductDto dto = new ProductDto();
         dto.setId(product.getId());
         dto.setName(product.getName());
@@ -85,8 +30,8 @@ public class ProductDto {
         return dto;
     }
 
-    public static com.ecommerce.model.Product toEntity(ProductDto dto) {
-        com.ecommerce.model.Product product = new com.ecommerce.model.Product();
+    public static Product toEntity(ProductDto dto) {
+        Product product = new Product();
         product.setId(dto.getId());
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());

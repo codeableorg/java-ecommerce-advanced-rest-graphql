@@ -2,7 +2,8 @@ package com.ecommerce.controller;
 
 import com.ecommerce.model.Product;
 import com.ecommerce.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -14,9 +15,9 @@ import reactor.core.publisher.Mono;
  * Controlador GraphQL para productos.
  */
 @Controller
+@RequiredArgsConstructor
 public class ProductGraphQLController {
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @QueryMapping
     public Mono<Product> productById(@Argument Long id) {
@@ -46,6 +47,7 @@ public class ProductGraphQLController {
         return productService.createProduct(product);
     }
 
+    @Data
     public static class ProductInput {
         private String name;
         private String description;
@@ -53,54 +55,5 @@ public class ProductGraphQLController {
         private String category;
         private Boolean available;
         private Integer sales;
-
-        // Getters y setters
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public Double getPrice() {
-            return price;
-        }
-
-        public void setPrice(Double price) {
-            this.price = price;
-        }
-
-        public String getCategory() {
-            return category;
-        }
-
-        public void setCategory(String category) {
-            this.category = category;
-        }
-
-        public Boolean getAvailable() {
-            return available;
-        }
-
-        public void setAvailable(Boolean available) {
-            this.available = available;
-        }
-
-        public Integer getSales() {
-            return sales;
-        }
-
-        public void setSales(Integer sales) {
-            this.sales = sales;
-        }
     }
 }
