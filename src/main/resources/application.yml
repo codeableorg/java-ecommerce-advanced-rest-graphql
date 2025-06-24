@@ -18,7 +18,12 @@ spring:
     baseline-on-migrate: true
 
 server:
-  port: 8081 # Cambio: Gateway toma 8080, monolito va a 8081
+  port: 8081 # Cambio: Gateway toma 8080, inventory-service 8082, monolito va a 8081
+
+# Microservices configuration
+inventory-service:
+  base-url: http://localhost:8082
+
 logging:
   level:
     root: INFO

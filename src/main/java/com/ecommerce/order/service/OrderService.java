@@ -5,7 +5,7 @@ import com.ecommerce.order.model.OrderItem;
 import com.ecommerce.order.repository.OrderRepository;
 import com.ecommerce.order.repository.OrderItemRepository;
 import com.ecommerce.product.repository.ProductRepository;
-import com.ecommerce.inventory.repository.InventoryRepository;
+import com.ecommerce.inventory.client.InventoryServiceClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
   private final OrderItemRepository orderItemRepository;
   private final ProductRepository productRepository;
-  private final InventoryRepository inventoryRepository;
+  private final InventoryServiceClient inventoryServiceClient;
 
   public Flux<Order> getAllOrders() {
     return orderRepository.findAll();
@@ -77,11 +77,8 @@ public class OrderService {
   }
 
   private Mono<Void> restoreInventory(Long productId, Integer quantity) {
-    return inventoryRepository.findByProductId(productId)
-        .flatMap(inventory -> {
-          inventory.setStockQuantity(inventory.getStockQuantity() + quantity);
-          return inventoryRepository.save(inventory).then();
-        });
+    return inventoryServiceClient.restoreStock(productId, quantity)
+        .then();
   }
 
   public Mono<Order> recalculateOrderTotal(Long orderId) {
@@ -140,23 +137,18 @@ public class OrderService {
     return productRepository.findById(productId)
         .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
             "Product with ID " + productId + " not found")))
-        .then(inventoryRepository.findByProductId(productId)
-            .switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "No inventory found for product " + productId)))
-            .flatMap(inventory -> {
-              if (inventory.getStockQuantity() < quantity) {
+        .then(inventoryServiceClient.checkProductAvailability(productId, quantity)
+            .flatMap(isAvailable -> {
+              if (!isAvailable) {
                 return Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Insufficient stock. Available: " + inventory.getStockQuantity() + ", Requested: " + quantity));
+                    "Insufficient stock. Requested: " + quantity));
               }
               return Mono.empty();
             }));
   }
 
   private Mono<Void> reserveInventory(Long productId, Integer quantity) {
-    return inventoryRepository.findByProductId(productId)
-        .flatMap(inventory -> {
-          inventory.setStockQuantity(inventory.getStockQuantity() - quantity);
-          return inventoryRepository.save(inventory).then();
-        });
+    return inventoryServiceClient.reserveStock(productId, quantity)
+        .then();
   }
 }
