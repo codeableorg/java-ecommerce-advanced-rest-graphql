@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table("orders")
 public class Order {
-    @Id
-    private Long id;
-    private Long userId;
-    private OrderStatus status;
-    private Double totalAmount;
-    private LocalDateTime orderDate;
+  @Id
+  private Long id;
+  private Long userId;
+  private OrderStatus status;
+  private Double totalAmount;
+  private LocalDateTime orderDate;
 }

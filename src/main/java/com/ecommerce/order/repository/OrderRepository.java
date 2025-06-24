@@ -10,5 +10,5 @@ import reactor.core.publisher.Flux;
  */
 @Repository
 public interface OrderRepository extends ReactiveCrudRepository<Order, Long> {
-    Flux<Order> findByUserId(Long userId);
+  Flux<Order> findByUserId(Long userId);
 }

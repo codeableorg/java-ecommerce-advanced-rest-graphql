@@ -26,7 +26,6 @@ public class ProductGraphQLController {
 
   @QueryMapping
   public Flux<Product> productsByCategory(@Argument String category) {
-    // Implementar búsqueda por categoría
     return productService.getProductsByCategory(category);
   }
 
@@ -42,8 +41,14 @@ public class ProductGraphQLController {
     product.setDescription(input.getDescription());
     product.setPrice(input.getPrice());
     product.setCategory(input.getCategory());
-    // Note: available and sales fields removed
     return productService.createProduct(product);
+  }
+
+  @MutationMapping
+  public Mono<Boolean> deleteProduct(@Argument Long id) {
+    return productService.deleteProduct(id)
+        .then(Mono.just(true))
+        .onErrorReturn(false);
   }
 
   @Data
@@ -52,6 +57,5 @@ public class ProductGraphQLController {
     private String description;
     private Double price;
     private String category;
-    // Note: available and sales fields removed
   }
 }

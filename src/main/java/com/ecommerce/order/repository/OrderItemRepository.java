@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
  */
 @Repository
 public interface OrderItemRepository extends ReactiveCrudRepository<OrderItem, Long> {
-    Flux<OrderItem> findByOrderId(Long orderId);
-    Flux<OrderItem> findByProductId(Long productId);
+  Flux<OrderItem> findByOrderId(Long orderId);
+
+  Flux<OrderItem> findByProductId(Long productId);
 }

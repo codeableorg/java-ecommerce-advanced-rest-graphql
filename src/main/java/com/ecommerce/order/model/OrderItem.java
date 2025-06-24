@@ -14,10 +14,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @Table("order_items")
 public class OrderItem {
-    @Id
-    private Long id;
-    private Long orderId;
-    private Long productId;
-    private Integer quantity;
-    private Double unitPrice;
+  @Id
+  private Long id;
+  private Long orderId;
+  private Long productId;
+  private Integer quantity;
+  private Double unitPrice;
 }

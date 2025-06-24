@@ -5,21 +5,26 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.relational.core.mapping.Column;
 
 /**
  * Entidad de usuario para el sistema de ecommerce.
- * Keycloak maneja autenticación, esta entidad solo datos de negocio.
+ * Simple user entity for basic authentication and user management.
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("users")
 public class User {
-    @Id
-    private Long id;
-    private String keycloakId; // References Keycloak user UUID
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String address;
+  @Id
+  private Long id;
+
+  @Column("username")
+  private String username; // Maps to username column (NOT NULL)
+
+  @Column("email")
+  private String email; // Maps to email column (NOT NULL)
+
+  @Column("full_name")
+  private String fullName; // Maps to full_name column
 }

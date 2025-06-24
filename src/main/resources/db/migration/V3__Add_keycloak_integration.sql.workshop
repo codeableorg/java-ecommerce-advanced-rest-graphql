@@ -1,0 +1,16 @@
+-- V3__Add_keycloak_integration.sql
+-- Migration to add Keycloak integration to existing users table
+-- This migration will be applied during the workshop when introducing Keycloak
+
+-- Add keycloak_id column to users table
+ALTER TABLE users ADD COLUMN keycloak_id VARCHAR(255) UNIQUE;
+
+-- Create index for keycloak_id
+CREATE INDEX idx_keycloak_id ON users(keycloak_id);
+
+-- Optional: Add sample keycloak_id values to existing users
+-- These would be replaced with real Keycloak UUIDs during integration
+-- UPDATE users SET keycloak_id = 'keycloak-john-uuid' WHERE username = 'john_doe';
+-- UPDATE users SET keycloak_id = 'keycloak-jane-uuid' WHERE username = 'jane_smith';
+-- UPDATE users SET keycloak_id = 'keycloak-mike-uuid' WHERE username = 'mike_wilson';
+-- UPDATE users SET keycloak_id = 'keycloak-sarah-uuid' WHERE username = 'sarah_brown';

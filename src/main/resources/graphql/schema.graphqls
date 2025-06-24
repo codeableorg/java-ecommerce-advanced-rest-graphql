@@ -2,6 +2,19 @@ type Query {
   productById(id: ID!): Product
   productsByCategory(category: String!): [Product]
   products: [Product]
+
+  # User queries
+  userById(id: ID!): User
+  users: [User]
+
+  # Order queries
+  orderById(id: ID!): Order
+  ordersByUserId(userId: ID!): [Order]
+  orders: [Order]
+
+  # Inventory queries
+  inventoryByProductId(productId: ID!): Inventory
+  inventory: [Inventory]
 }
 
 type Product {
@@ -9,20 +22,64 @@ type Product {
   name: String!
   description: String
   price: Float!
-  category: String!
-  available: Boolean!
-  sales: Int!
+  category: String
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  fullName: String
+}
+
+type Order {
+  id: ID!
+  userId: ID!
+  status: OrderStatus!
+  totalAmount: Float!
+  orderDate: String!
+}
+
+type Inventory {
+  id: ID!
+  productId: ID!
+  stockQuantity: Int!
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
 
 type Mutation {
   createProduct(input: ProductInput!): Product
+  deleteProduct(id: ID!): Boolean
+
+  createUser(input: UserInput!): User
+  updateUser(id: ID!, input: UserInput!): User
+  deleteUser(id: ID!): Boolean
+
+  createOrder(input: OrderInput!): Order
 }
 
 input ProductInput {
   name: String!
   description: String
   price: Float!
-  category: String!
-  available: Boolean!
-  sales: Int!
+  category: String
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  fullName: String
+}
+
+input OrderInput {
+  userId: ID!
+  status: OrderStatus
+  totalAmount: Float!
 }

@@ -10,5 +10,5 @@ import reactor.core.publisher.Mono;
  */
 @Repository
 public interface InventoryRepository extends ReactiveCrudRepository<Inventory, Long> {
-    Mono<Inventory> findByProductId(Long productId);
+  Mono<Inventory> findByProductId(Long productId);
 }

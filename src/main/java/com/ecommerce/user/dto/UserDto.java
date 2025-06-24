@@ -10,32 +10,26 @@ import com.ecommerce.user.model.User;
 @Data
 @NoArgsConstructor
 public class UserDto {
-    private Long id;
-    private String keycloakId;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String address;
+  private Long id;
+  private String username;
+  private String email;
+  private String fullName;
 
-    public static UserDto fromEntity(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.getId());
-        dto.setKeycloakId(user.getKeycloakId());
-        dto.setEmail(user.getEmail());
-        dto.setFirstName(user.getFirstName());
-        dto.setLastName(user.getLastName());
-        dto.setAddress(user.getAddress());
-        return dto;
-    }
+  public static UserDto fromEntity(User user) {
+    UserDto dto = new UserDto();
+    dto.setId(user.getId());
+    dto.setUsername(user.getUsername());
+    dto.setEmail(user.getEmail());
+    dto.setFullName(user.getFullName());
+    return dto;
+  }
 
-    public static User toEntity(UserDto dto) {
-        User user = new User();
-        user.setId(dto.getId());
-        user.setKeycloakId(dto.getKeycloakId());
-        user.setEmail(dto.getEmail());
-        user.setFirstName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setAddress(dto.getAddress());
-        return user;
-    }
+  public static User toEntity(UserDto dto) {
+    User user = new User();
+    user.setId(dto.getId());
+    user.setUsername(dto.getUsername());
+    user.setEmail(dto.getEmail());
+    user.setFullName(dto.getFullName());
+    return user;
+  }
 }

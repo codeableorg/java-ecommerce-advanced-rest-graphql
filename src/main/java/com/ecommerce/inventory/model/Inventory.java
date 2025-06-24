@@ -14,8 +14,8 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @Table("inventory")
 public class Inventory {
-    @Id
-    private Long id;
-    private Long productId;
-    private Integer stockQuantity;
+  @Id
+  private Long id;
+  private Long productId;
+  private Integer stockQuantity;
 }
