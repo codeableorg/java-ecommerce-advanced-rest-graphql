@@ -1,4 +1,4 @@
-package com.ecommerce.model;
+package com.ecommerce.product.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +14,12 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @Table("products")
 public class Product {
-    @Id
-    private Long id;
-    private String name;
-    private String description;
-    private Double price;
-    private String category;
-    private Boolean available;
-    private Integer sales;
+  @Id
+  private Long id;
+  private String name;
+  private String description;
+  private Double price;
+  private String category;
+  // Removed: available (will be derived from Inventory service)
+  // Removed: sales (will be calculated from OrderItems)
 }

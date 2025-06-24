@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-import com.ecommerce.model.Product;
-import com.ecommerce.service.ProductService;
+import com.ecommerce.product.model.Product;
+import com.ecommerce.product.service.ProductService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductControllerTest {
@@ -31,8 +31,7 @@ public class ProductControllerTest {
         p.setDescription("desc");
         p.setPrice(10.0);
         p.setCategory("cat");
-        p.setAvailable(true);
-        p.setSales(5);
+        // Note: available and sales fields removed
         when(productService.getProducts(any())).thenReturn(Flux.just(p));
         when(productService.countProducts()).thenReturn(Mono.just(1L));
         webTestClient.get()
@@ -42,7 +41,7 @@ public class ProductControllerTest {
                 .expectBody()
                 .jsonPath("$.data[0].id").isEqualTo(1)
                 .jsonPath("$.data[0].name").isEqualTo("Test")
-                .jsonPath("$.pagination.total_records").isEqualTo(1)
-                .jsonPath("$.pagination.current_page").isEqualTo(1);
+                .jsonPath("$.pagination.totalRecords").isEqualTo(1)
+                .jsonPath("$.pagination.currentPage").isEqualTo(1);
     }
 }
